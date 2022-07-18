@@ -69,5 +69,11 @@ namespace Scripts.Utilities
         {
             GamePassEvent?.Invoke(miniGame);
         }
+
+        public static event Action<int> StartNewGameEvent;
+        public static void CallStartNewGameEvent(int gameWeek)
+        {
+            StartNewGameEvent?.Invoke(gameWeek);
+        }
     }
 }

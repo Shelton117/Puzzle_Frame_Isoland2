@@ -1,4 +1,5 @@
 using Scripts.Transition;
+using Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,11 @@ namespace Scripts.Menu
             TransitionManager.Instance.Transition(currentScene, "Menu");
 
             // TODO：保存游戏进度
+        }
+
+        public void StartGameWeek(int gameWeek)
+        {
+            EventHandler.CallStartNewGameEvent(gameWeek);
         }
     }
 }

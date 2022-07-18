@@ -11,7 +11,13 @@ namespace Scripts.Manager
     /// </summary>
     public class ObjectManager : Singleton<ObjectManager>
     {
+        /// <summary>
+        /// 物品名称
+        /// </summary>
         public Dictionary<ItemName,bool> itemAvailableDict = new Dictionary<ItemName, bool>();
+        /// <summary>
+        /// 物品状态
+        /// </summary>
         public Dictionary<string,bool> interactiveStateDict = new Dictionary<string, bool>();
 
         private void OnEnable()
@@ -19,6 +25,7 @@ namespace Scripts.Manager
             EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneUnloadEvent += OnAfterSceneUnloadEvent;
             EventHandler.UpdateUIEvent += OnUpdateUIEvent;
+            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
         }
 
         private void OnDisable()
@@ -26,6 +33,7 @@ namespace Scripts.Manager
             EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
             EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
+            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
         }
 
         private void OnBeforeSceneUnloadEvent()
@@ -89,6 +97,12 @@ namespace Scripts.Manager
             {
                 itemAvailableDict[itemDetails.itemName] = false;
             }
+        }
+
+        private void OnStartNewGameEvent(int gameWeek)
+        {
+            itemAvailableDict.Clear();
+            interactiveStateDict.Clear();
         }
     }
 }

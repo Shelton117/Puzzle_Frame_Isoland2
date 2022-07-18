@@ -35,17 +35,24 @@ namespace Scripts.Transition
 
         private void OnEnable()
         {
-            EventHandler.GameStateChangeEvent += ObGameStateChangeEvent;
+            EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
         }
 
         private void OnDisable()
         {
-            EventHandler.GameStateChangeEvent -= ObGameStateChangeEvent;
+            EventHandler.GameStateChangeEvent -= OnGameStateChangeEvent;
+            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
         }
 
-        private void ObGameStateChangeEvent(GameState gameState)
+        private void OnGameStateChangeEvent(GameState gameState)
         {
             canTtransition = gameState == GameState.Play;
+        }
+
+        private void OnStartNewGameEvent(int gameWeek)
+        {
+            StartCoroutine(Transition2Scene("Menu", startScene));
         }
 
         public void Transition(string from, string to)

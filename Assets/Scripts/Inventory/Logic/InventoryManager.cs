@@ -19,6 +19,7 @@ namespace Scripts.Inventory.Logic
             EventHandler.ItemUsedEvent += OnItemUsedEvent;
             EventHandler.ChangeItemEvent += OnChangeItemEvent;
             EventHandler.AfterSceneUnloadEvent += OnAfterSceneUnloadEvent;
+            EventHandler.StartNewGameEvent += OnStartNewGameEvent;
         }
 
         private void OnDisable()
@@ -26,6 +27,7 @@ namespace Scripts.Inventory.Logic
             EventHandler.ItemUsedEvent -= OnItemUsedEvent;
             EventHandler.ChangeItemEvent -= OnChangeItemEvent;
             EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
+            EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
         }
 
         private void OnItemUsedEvent(ItemName itemName)
@@ -66,6 +68,11 @@ namespace Scripts.Inventory.Logic
                     EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
                 }
             }
+        }
+
+        private void OnStartNewGameEvent(int gameWeek)
+        {
+            itemList.Clear();
         }
 
         public void AddItem(ItemName itemName)

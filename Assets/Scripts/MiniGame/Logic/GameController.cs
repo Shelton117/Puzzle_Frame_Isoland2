@@ -10,6 +10,7 @@ namespace Scripts.MiniGame.Logic
         [SerializeField] private UnityEvent OnFinish;
         [Header("Game Data")]
         [SerializeField] private GameH2A_SO gameData;
+        [SerializeField] private GameH2A_SO[] gameDataArray;
         [SerializeField] private Transform[] holderTransforms;
         [SerializeField] private GameObject lineParent;
         [SerializeField] private LineRenderer linePrefab;
@@ -17,8 +18,8 @@ namespace Scripts.MiniGame.Logic
 
         private void Start()
         {
-            DrawLine();
-            CreateBall();
+            //DrawLine();
+            //CreateBall();
         }
 
         private void OnEnable()
@@ -51,6 +52,14 @@ namespace Scripts.MiniGame.Logic
 
             EventHandler.CallGamePassEvent(gameData.gameName);
             OnFinish?.Invoke();
+        }
+
+        public void SetGameWeekData(int gameWeek)
+        {
+            gameData = gameDataArray[gameWeek];
+
+            DrawLine();
+            CreateBall();
         }
 
         public void ResetGame()
